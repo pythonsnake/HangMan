@@ -1,7 +1,13 @@
 """
 Functions of HangManGame
 """
+
+#importing
 import pickle
+import lxml
+import urllib
+import lxml.html
+
 def goodletter(word, letter):
   """
   This function replaces the hidden letter with good ones.
@@ -15,7 +21,7 @@ def goodletter(word, letter):
     else:
       new_word+="-"
   return new_word
-   
+
 
 def hide_it(word, hide_character):
   """
@@ -23,7 +29,7 @@ def hide_it(word, hide_character):
   Arguments: word, character
   """
   return hide_character*len(word)
-  
+
 
 def merge(word1, word2, sep):
   """
@@ -40,7 +46,7 @@ def merge(word1, word2, sep):
       word+=word1[index]
     index+=1
   return word
-    
+
 def continue_quit(answer):
   """
   Ask to continue or not. Save feature added.
@@ -54,7 +60,7 @@ def continue_quit(answer):
     if answer[0].lower=='y':
       return "save"
     return False
-    
+
 def save(savefile, score):
   """
   Save the score in savefile (binary)
@@ -65,3 +71,28 @@ def save(savefile, score):
   with os.open(savefile, "wb") as savefile:
     mypickle=pickle.Pickler(savefile)
     mypickle.dump(score)
+
+def getDefinition(word):
+  """
+  Get the definition of a file.
+  Internet access required.
+  Argument: word
+  """
+  source = urllib.urlopen('http://dictionary.reference.com/browse/{0}'.format(word)).read()
+  tree = lxml.html.document_fromstring(source)
+
+  try:
+    results = tree.xpath('//div[@class="dndata"]/div')[0].text_content().replace('a.', '').capitalize()
+  except IndexError:
+    print "Hmmm."
+  else:
+    results = tree.xpath('//div[@class="dndata"]/div')[0].text_content().replace('a.', '').capitalize()
+    return results
+
+  try:
+    results = tree.xpath('//div[@class="dndata"]/div')[0].text_content().replace('a.', '').capitalize()
+  except IndexError:
+    print "No results ! I think.."
+  else:
+    results = tree.xpath('//div[@class="dndata"]/div')[0].text_content().replace('a.', '').capitalize()
+    return results

@@ -19,7 +19,7 @@ while answer:
   count=0
   i=random.randrange(113810)
   word_to_guess=values.words[i]
-  
+
   #hide the word
   print functions.hide_it(word_to_guess, "-")
   print "Left:",values.retries-count, "retries."
@@ -50,15 +50,18 @@ while answer:
     else:
       print word
     print "Left:",values.retries-count, "retries."
-    
+
   #win/lose
     if word==word_to_guess:
       print "You win."
       score+=count
-  print "You lose."
+      break
+  if word!=word_to_guess:
+    print "You lose.\nThe word was", word_to_guess
+  print functions.getDefinition(word_to_guess)
   functions.continue_quit(answer)
 if answer=='save':
   score_save={username:score}
   functions.save(savefile, score_save)
 #continue/quit
-  
+
