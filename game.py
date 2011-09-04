@@ -58,7 +58,7 @@ while answer:
       break
   if word!=word_to_guess:
     print "You lose.\nThe word was", word_to_guess
-  print functions.getDefinition(word_to_guess)
+  print "The definition of", word_to_guess, ' is:\n',functions.getDefinition(word_to_guess)
   functions.continue_quit(answer)
 if answer=='save':
   score_save={username:score}
