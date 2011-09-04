@@ -14,6 +14,8 @@ print "Guess the word ! You have 8 tries only though."
 
 answer=True
 score=0
+saveOrNot=False
+
 while answer:
   #declaring variables
   count=0
@@ -58,10 +60,11 @@ while answer:
       break
   if word!=word_to_guess:
     print "You lose.\nThe word was", word_to_guess
-  print "The definition of", word_to_guess, ' is:\n',functions.getDefinition(word_to_guess)
-  functions.continue_quit(answer)
-if answer=='save':
+  print "The definition of", word_to_guess, 'is:\n',functions.getDefinition(word_to_guess)
+  functions.continue_quit()
+  print saveOrNot, answer
+if saveOrNot:
   score_save={username:score}
-  functions.save(savefile, score_save)
+  functions.save('savefile', score_save)
 #continue/quit
 

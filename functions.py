@@ -47,19 +47,21 @@ def merge(word1, word2, sep):
     index+=1
   return word
 
-def continue_quit(answer):
+def continue_quit():
   """
   Ask to continue or not. Save feature added.
   If yes, returns True, else, return False
   """
+  global answer
+  global saveOrNot
   answer=raw_input("Do you want to continue ? yes or no : ")
   if answer[0].lower=='y':
-    return True
+    answer=True
   elif answer[0].lower=='n':
-    answer=raw_input("Do you want to save ? yes or no : ")
-    if answer[0].lower=='y':
-      return "save"
-    return False
+    saveOrNot=raw_input("Do you want to save ? yes or no : ")
+    if saveOrNot[0].lower=='y':
+      saveOrNot=True
+    answer=False
 
 def save(savefile, score):
   """
@@ -68,8 +70,8 @@ def save(savefile, score):
   #TODO: -All scores in one dict
   #      -Add score to existing usernames
   #      -Create savefile
-  with os.open(savefile, "wb") as savefile:
-    mypickle=pickle.Pickler(savefile)
+  with os.open(savefile, "w+b") as save:
+    mypickle=pickle.Pickler(save)
     mypickle.dump(score)
 
 def getDefinition(word):
@@ -77,22 +79,23 @@ def getDefinition(word):
   Get the definition of a file.
   Internet access required.
   Argument: word
+  Source: www.anagrammer.com
   """
-  source = urllib.urlopen('http://www.yourdictionary.com/search?ydQ={0}'.format(word)).read()
+  source = urllib.urlopen('http://www.anagrammer.com/scrabble/{0}'.format(word)).read()
   tree = lxml.html.document_fromstring(source)
+#  try:
+#    results = tree.xpath('//ol[@class="sense"]/li')[0].text_content().capitalize()
+#  except IndexError:
+#    print "Hmmm."
+#  else:
+#    results = tree.xpath('//ol[@class="sense"]/li')[0].text_content().capitalize()
+#    return results
   try:
-    results = tree.xpath('//ol[@class="sense"]/li')[0].text_content().capitalize()
-  except IndexError:
-    print "Hmmm."
-  else:
-    results = tree.xpath('//ol[@class="sense"]/li')[0].text_content().capitalize()
-    return results
-  try:
-    results = tree.xpath('//div[@class="sense"]/div')[0].text_content().capitalize()
+    results = tree.xpath("//span[@class='definition']")[0].text_content().capitalize()
   except IndexError:
     print "No results ?! There's a bug !"
   else:
-    results = tree.xpath('//div[@class="sense"]/div')[0].text_content().capitalize()
+    results = tree.xpath("//span[@class='definition']")[0].text_content().capitalize()
     return results
 
 # OLD VERSION
