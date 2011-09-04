@@ -78,21 +78,36 @@ def getDefinition(word):
   Internet access required.
   Argument: word
   """
-  source = urllib.urlopen('http://dictionary.reference.com/browse/{0}'.format(word)).read()
+  source = urllib.urlopen('http://www.yourdictionary.com/search?ydQ={0}'.format(word)).read()
   tree = lxml.html.document_fromstring(source)
-
   try:
-    results = tree.xpath('//div[@class="dndata"]/div')[0].text_content().replace('a.', '').capitalize()
+    results = tree.xpath('//ol[@class="sense"]/li')[0].text_content().capitalize()
   except IndexError:
     print "Hmmm."
   else:
-    results = tree.xpath('//div[@class="dndata"]/div')[0].text_content().replace('a.', '').capitalize()
+    results = tree.xpath('//ol[@class="sense"]/li')[0].text_content().capitalize()
+    return results
+  try:
+    results = tree.xpath('//div[@class="sense"]/div')[0].text_content().capitalize()
+  except IndexError:
+    print "No results ?! There's a bug !"
+  else:
+    results = tree.xpath('//div[@class="sense"]/div')[0].text_content().capitalize()
     return results
 
-  try:
-    results = tree.xpath('//div[@class="dndata"]/div')[0].text_content().replace('a.', '').capitalize()
-  except IndexError:
-    print "No results ! I think.."
-  else:
-    results = tree.xpath('//div[@class="dndata"]/div')[0].text_content().replace('a.', '').capitalize()
-    return results
+# OLD VERSION
+#  try:
+#    results = tree.xpath('//div[@class="dndata"]/div')[0].text_content().replace('a.', '').capitalize()
+#  except IndexError:
+#    print "Hmmm."
+#  else:
+#    results = tree.xpath('//div[@class="dndata"]/div')[0].text_content().replace('a.', '').capitalize()
+#    return results
+#
+#  try:
+#    results = tree.xpath('//div[@class="dndata"]/div')[0].text_content().replace('a.', '').capitalize()
+#  except IndexError:
+#    print "No results ! I think.."
+#  else:
+#    results = tree.xpath('//div[@class="dndata"]/div')[0].text_content().replace('a.', '').capitalize()
+#    return results
