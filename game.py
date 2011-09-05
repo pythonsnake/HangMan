@@ -3,12 +3,16 @@ HangManGame
 """
 
 print "        HangManGame, by PythonSnake"
-print "                Pre-Alpha Version"
+print "             0.1 Beta Version     "
 
 #import modules
 import values
 import random
 import functions
+import curses
+
+stdscr = curses.initscr()
+
 username=raw_input("Hi. What's your name ? ")
 print "Guess the word ! You have 8 tries only though."
 
@@ -68,4 +72,6 @@ while answer==True:
     if saveOrNot[0].lower()=='y':
       score_save={username:score}
       functions.save('save', score_save)
+curses.nocbreak()
+curses.endwin()
 
