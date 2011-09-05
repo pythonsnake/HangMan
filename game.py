@@ -14,9 +14,8 @@ print "Guess the word ! You have 8 tries only though."
 
 answer=True
 score=0
-saveOrNot=False
 
-while answer:
+while answer==True:
   #declaring variables
   count=0
   i=random.randrange(113810)
@@ -61,10 +60,12 @@ while answer:
   if word!=word_to_guess:
     print "You lose.\nThe word was", word_to_guess
   print "The definition of", word_to_guess, 'is:\n',functions.getDefinition(word_to_guess)
-  functions.continue_quit()
-  print saveOrNot, answer
-if saveOrNot:
-  score_save={username:score}
-  functions.save('savefile', score_save)
-#continue/quit
+
+#continue/quit/save
+  answer=raw_input("Do you want to continue ? yes/no: ")
+  if answer[0].lower()=='n':
+    saveOrNot=raw_input("Do you want to save ? yes/no: ")
+    if saveOrNot[0].lower()=='y':
+      score_save={username:score}
+      functions.save('save', score_save)
 

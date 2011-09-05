@@ -47,22 +47,6 @@ def merge(word1, word2, sep):
     index+=1
   return word
 
-def continue_quit():
-  """
-  Ask to continue or not. Save feature added.
-  If yes, returns True, else, return False
-  """
-  global answer
-  global saveOrNot
-  answer=raw_input("Do you want to continue ? yes or no : ")
-  if answer[0].lower=='y':
-    answer=True
-  elif answer[0].lower=='n':
-    saveOrNot=raw_input("Do you want to save ? yes or no : ")
-    if saveOrNot[0].lower=='y':
-      saveOrNot=True
-    answer=False
-
 def save(savefile, score):
   """
   Save the score in savefile (binary)
@@ -70,7 +54,7 @@ def save(savefile, score):
   #TODO: -All scores in one dict
   #      -Add score to existing usernames
   #      -Create savefile
-  with os.open(savefile, "w+b") as save:
+  with open(savefile, "w+b") as save:
     mypickle=pickle.Pickler(save)
     mypickle.dump(score)
 
