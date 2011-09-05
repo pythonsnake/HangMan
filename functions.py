@@ -67,13 +67,6 @@ def getDefinition(word):
   """
   source = urllib.urlopen('http://www.anagrammer.com/scrabble/{0}'.format(word)).read()
   tree = lxml.html.document_fromstring(source)
-#  try:
-#    results = tree.xpath('//ol[@class="sense"]/li')[0].text_content().capitalize()
-#  except IndexError:
-#    print "Hmmm."
-#  else:
-#    results = tree.xpath('//ol[@class="sense"]/li')[0].text_content().capitalize()
-#    return results
   try:
     results = tree.xpath("//span[@class='definition']")[0].text_content().capitalize()
   except IndexError:
@@ -82,19 +75,3 @@ def getDefinition(word):
     results = tree.xpath("//span[@class='definition']")[0].text_content().capitalize()
     return results
 
-# OLD VERSION
-#  try:
-#    results = tree.xpath('//div[@class="dndata"]/div')[0].text_content().replace('a.', '').capitalize()
-#  except IndexError:
-#    print "Hmmm."
-#  else:
-#    results = tree.xpath('//div[@class="dndata"]/div')[0].text_content().replace('a.', '').capitalize()
-#    return results
-#
-#  try:
-#    results = tree.xpath('//div[@class="dndata"]/div')[0].text_content().replace('a.', '').capitalize()
-#  except IndexError:
-#    print "No results ! I think.."
-#  else:
-#    results = tree.xpath('//div[@class="dndata"]/div')[0].text_content().replace('a.', '').capitalize()
-#    return results
