@@ -112,10 +112,10 @@ def menu():
             print 'Invalid.' 
         if options.lower()[0]=='r':
             new=raw_input('Enter new value: ')
-            values.retries=new
+            values.retries=int(new)
         elif options.lower()[0]=='s':
             new=raw_input('Enter new value: ')
-            values.savefile=new
+            values.savefile=int(new)
     elif menuChoose.lower()[0]=='q':
         sys.exit()
         

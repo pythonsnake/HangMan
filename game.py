@@ -21,9 +21,9 @@ functions.menu()
 
 print "Guess the word ! You have 8 tries only though."
 
-answer=True
+answer='y'
 
-while answer==True:
+while answer.lower()[0]=='y':
 #declaring variables
     count=0
     i=random.randrange(113810)
@@ -76,4 +76,3 @@ while answer==True:
         if saveOrNot[0].lower()=='y':
             score_save={username:score}
             functions.save(values.savefile, score_save)
-
