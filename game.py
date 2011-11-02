@@ -15,7 +15,8 @@ score=0
 
 if functions.load(values.savefile)!=False and username in functions.load(values.savefile).keys():
     s=functions.load(values.savefile)
-    score+=s[username][0]
+    score+=s[username]
+    print "I remember ya ! You had {0} points !".format(s[username])
 
 functions.menu()
 

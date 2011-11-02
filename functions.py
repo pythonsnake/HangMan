@@ -72,7 +72,7 @@ def save(savefile, score):
 #      -Add score to existing usernames
 #      -Create savefile       
     data=load(savefile)
-    if score.items()[0] in data:
+    if data!=False and score.items()[0] in data:
         data[score.keys()[0]]+=score.items()[0]
     with open(savefile, "w+b") as save:
         mypickle=pickle.Pickler(save)
